@@ -79,8 +79,11 @@ function checkBrowserFeatures() {
             );
             return false;
         }
-        if (window.Modernizr[featureList[i]] === false) {
+
+        // Temporary fix, displaytable and display-table detection does not work with IFRAME.
+        if (featureList[i] !== 'displaytable' && featureList[i] !== 'display-table' && window.Modernizr[featureList[i]] === false) {
             console.error("Browser missing feature: '%s'", featureList[i]);
+
             // toggle flag rather than return early so we log all missing features rather than just the first.
             featureComplete = false;
         }

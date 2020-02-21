@@ -51,7 +51,7 @@
     "dist": "scripts/package.sh",
     "start": "concurrently --kill-others-on-fail --prefix \"{time} [{name}]\" -n reskindex,reskindex-react,res,riot-js \"yarn reskindex:watch\" \"yarn reskindex:watch-react\" \"yarn start:res\" \"yarn start:js\"",
     "start:res": "node scripts/copy-res.js -w",
-    "start:js": "webpack-dev-server --host=local.friends.chat --https --cert .cert/chat.pem --key .cert/chat.key --output-filename=bundles/_dev_/[name].js --output-chunk-filename=bundles/_dev_/[name].js -w --progress --mode development",
+    "start:js": "webpack-dev-server --host=local.friends.social --https --cert .cert/social.pem --key .cert/social.key --output-filename=bundles/_dev_/[name].js --output-chunk-filename=bundles/_dev_/[name].js -w --progress --mode development",
     "electron": "yarn build && yarn install:electron && electron .",
     "lint": "yarn lint:types && yarn lint:ts && yarn lint:js && yarn lint:style",
     "lint:js": "eslint src",
@@ -66,11 +66,13 @@
     "gemini-scrollbar": "github:matrix-org/gemini-scrollbar#91e1e566",
     "gfm.css": "^1.1.2",
     "highlight.js": "^9.13.1",
+    "jsonwebtoken": "^8.5.1",
     "matrix-js-sdk": "github:matrix-org/matrix-js-sdk#develop",
     "matrix-react-sdk": "github:matrix-org/matrix-react-sdk#develop",
     "olm": "https://packages.matrix.org/npm/olm/olm-3.1.4.tgz",
     "postcss-easings": "^2.0.0",
     "prop-types": "^15.7.2",
+    "qrcode": "^1.4.4",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "sanitize-html": "^1.19.1",
@@ -194,7 +196,9 @@
     "afterSign": "scripts/electron_afterSign.js"
   },
   "jest": {
-    "modulePathIgnorePatterns": ["<rootDir>/electron_app"],
+    "modulePathIgnorePatterns": [
+      "<rootDir>/electron_app"
+    ],
     "testEnvironment": "jest-environment-jsdom-fourteen",
     "testMatch": [
       "<rootDir>/test/**/*-test.js"

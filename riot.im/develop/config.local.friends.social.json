@@ -1,5 +1,6 @@
 {
     "brand": "Friends",
+    "app": "web",
     "default_server_config": {
         "m.homeserver": {
             "base_url": "https://local.friends.chat:8448",

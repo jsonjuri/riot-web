@@ -1,5 +1,5 @@
 {
-    "%(appName)s via %(browserName)s on %(osName)s": "%(appName)s via %(browserName)s on %(osName)s",
+    "%(appName)s via %(browserName)s on %(osName)s": "via %(browserName)s on %(osName)s",
     "Custom Server Options": "Custom Server Options",
     "Dismiss": "Dismiss",
     "powered by Matrix": "powered by Matrix",

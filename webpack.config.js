@@ -5,6 +5,8 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require("webpack");
 
+const destination_path = "../../friends.social/app/webroot/chat";
+
 let og_image_url = process.env.RIOT_OG_IMAGE_URL;
 if (!og_image_url) og_image_url = 'https://riot.im/app/themes/riot/img/logos/riot-im-logo-black-text.png';
 
@@ -93,7 +95,7 @@ module.exports = (env, argv) => {
                 "matrix-js-sdk": path.resolve(__dirname, 'node_modules/matrix-js-sdk'),
 
                 // Define a variable so the i18n stuff can load
-                "$webapp": path.resolve(__dirname, 'webapp'),
+                "$webapp": path.resolve(__dirname, destination_path),
             },
         },
 
@@ -319,7 +321,7 @@ module.exports = (env, argv) => {
         ],
 
         output: {
-            path: path.join(__dirname, "webapp"),
+            path: path.join(__dirname, destination_path),
 
             // The generated JS (and CSS, from the extraction plugin) are put in a
             // unique subdirectory for the build. There will only be one such
@@ -335,7 +337,7 @@ module.exports = (env, argv) => {
         // configuration for the webpack-dev-server
         devServer: {
             // serve unwebpacked assets from webapp.
-            contentBase: './webapp',
+            contentBase: destination_path,
 
             // Only output errors, warnings, or new compilations.
             // This hides the massive list of modules.
