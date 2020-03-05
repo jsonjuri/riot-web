@@ -7569,7 +7569,7 @@ mathml-tag-names@^2.1.1:
 
 "matrix-js-sdk@github:matrix-org/matrix-js-sdk#develop":
   version "5.1.0"
-  resolved "https://codeload.github.com/matrix-org/matrix-js-sdk/tar.gz/da96765020b632deb5b433077827a4f4a64e16e9"
+  resolved "https://codeload.github.com/matrix-org/matrix-js-sdk/tar.gz/bc53f8fdec7222b6ca44a63cafbc7ae8c4cc396f"
   dependencies:
     "@babel/runtime" "^7.8.3"
     another-json "^0.2.0"
@@ -7590,8 +7590,8 @@ matrix-mock-request@^1.2.3:
     expect "^1.20.2"
 
 "matrix-react-sdk@github:matrix-org/matrix-react-sdk#develop":
-  version "2.2.0"
-  resolved "https://codeload.github.com/matrix-org/matrix-react-sdk/tar.gz/00dc187f7165a0659ce1ae5bbd3fd491ba5650db"
+  version "2.2.1"
+  resolved "https://codeload.github.com/matrix-org/matrix-react-sdk/tar.gz/845656064e802054b3857c2a240aaaf88f94f740"
   dependencies:
     "@babel/runtime" "^7.8.3"
     blueimp-canvas-to-blob "^3.5.0"
