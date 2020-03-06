@@ -315,7 +315,7 @@ module.exports = (env, argv) => {
             // This is the mobile guide's entry point (separate for faster mobile loading)
             new HtmlWebpackPlugin({
                 template: './src/vector/mobile_guide/index.html',
-                filename: 'mobile_guide/index.html',
+                filename: 'mobile.html',
                 minify: argv.mode === 'production',
                 chunks: ['mobileguide'],
             }),
@@ -323,7 +323,7 @@ module.exports = (env, argv) => {
             // This is the usercontent sandbox's entry point (separate for iframing)
             new HtmlWebpackPlugin({
                 template: './node_modules/matrix-react-sdk/src/usercontent/index.html',
-                filename: 'usercontent/index.html',
+                filename: 'iframe.html',
                 minify: argv.mode === 'production',
                 chunks: ['usercontent'],
             }),

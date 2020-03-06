@@ -57,18 +57,18 @@ const INCLUDE_LANGS = [
 // common parents. Hence, "res/{a,b}/**": the output will be "dest/a/..." and
 // "dest/b/...".
 
+/* ["res/vector-icons/**", PATH +  "/images/brand"], */
+/* ["contribute.json", PATH], */
 const PATH = "../../friends.social/app/webroot/chat";
 const COPY_LIST = [
     ["res/manifest.json", PATH],
     ["res/sw.js", PATH],
-    ["res/welcome.html", PATH],
-    ["res/welcome/**", PATH + "/welcome"],
+    ["res/login.html", PATH],
+    ["res/welcome/**", PATH + "/images/login"],
     ["res/themes/**", PATH + "/themes"],
-    ["res/vector-icons/**", PATH +  "/vector-icons"],
-    ["node_modules/matrix-react-sdk/res/media/**", PATH +  "/media"],
+    ["res/media/**", PATH +  "/media"],
     ["node_modules/olm/olm_legacy.js", PATH, { directwatch: 1 }],
     ["./config.json", PATH, { directwatch: 1 }],
-    ["contribute.json", PATH],
 ];
 
 const parseArgs = require('minimist');
