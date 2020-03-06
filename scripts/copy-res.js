@@ -60,6 +60,8 @@ const INCLUDE_LANGS = [
 /* ["res/vector-icons/**", PATH +  "/images/brand"], */
 /* ["contribute.json", PATH], */
 const PATH = "../../friends.social/app/webroot/chat";
+const I18N_PATH = "translations";
+
 const COPY_LIST = [
     ["res/manifest.json", PATH],
     ["res/sw.js", PATH],
@@ -96,8 +98,8 @@ if (!fs.existsSync(PATH)) {
     fs.mkdirSync(PATH);
 }
 // Check if i18n exists
-if (!fs.existsSync(PATH + '/i18n/')) {
-    fs.mkdirSync(PATH + '/i18n/');
+if (!fs.existsSync(PATH + '/' + I18N_PATH + '/')) {
+    fs.mkdirSync(PATH + '/' + I18N_PATH + '/');
 }
 
 function next(i, err) {
@@ -195,7 +197,7 @@ function genLangList(langFileMap) {
             languages[normalizedLanguage] = {'fileName': langFileMap[lang.value], 'label': lang.label};
         }
     });
-    fs.writeFile(PATH + '/i18n/languages.json', JSON.stringify(languages, null, 4), function(err) {
+    fs.writeFile(PATH + '/'+ I18N_PATH +'/languages.json', JSON.stringify(languages, null, 4), function(err) {
         if (err) {
             console.error("Copy Error occured: " + err);
             throw new Error("Failed to generate languages.json");
@@ -273,7 +275,7 @@ function watchLanguage(lang, dest, langFileMap) {
 }
 
 // language resources
-const I18N_DEST = PATH + "/i18n/";
+const I18N_DEST = PATH + "/"+ I18N_PATH + "/";
 const I18N_FILENAME_MAP = INCLUDE_LANGS.reduce((m, l) => {
     const filename = genLangFile(l.value, I18N_DEST);
     m[l.value] = filename;

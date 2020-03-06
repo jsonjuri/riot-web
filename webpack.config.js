@@ -241,7 +241,7 @@ module.exports = (env, argv) => {
                     type: "javascript/auto",
                     loader: 'file-loader',
                     options: {
-                        name: 'i18n/[name].[hash:7].[ext]',
+                        name: 'translations/[name].[hash:7].[ext]',
                     },
                 },
                 {
