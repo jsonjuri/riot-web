@@ -5,6 +5,9 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require("webpack");
 
+const CompressionPlugin = require('compression-webpack-plugin');
+const BrotliPlugin = require('brotli-webpack-plugin');
+
 const destination_path = "../../friends.social/app/webroot/chat";
 
 let og_image_url = process.env.RIOT_OG_IMAGE_URL;
@@ -57,6 +60,14 @@ module.exports = (env, argv) => {
                         enforce: true,
                         // Do not add `chunks: 'all'` here because you'll break the app entry point.
                     },
+                    /*
+                    vendor: {
+                        test: /node_modules/,
+                        chunks: 'initial',
+                        name: 'vendor',
+                        enforce: true
+                    },
+                    */
                 },
             },
 
@@ -327,6 +338,25 @@ module.exports = (env, argv) => {
                 minify: argv.mode === 'production',
                 chunks: ['usercontent'],
             }),
+
+            /*
+            new CompressionPlugin({
+                filename: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: /\.js$|\.css$|\.html$/,
+                threshold: 10240,
+                minRatio: 0.8,
+            }),
+
+            new CompressionPlugin({
+                filename: '[path].br[query]',
+                algorithm: 'brotliCompress',
+                test: /\.(js|css|html|svg)$/,
+                compressionOptions: { level: 11 },
+                threshold: 10240,
+                minRatio: 0.8,
+            }),
+            */
         ],
 
         output: {
@@ -341,6 +371,7 @@ module.exports = (env, argv) => {
             // chunks even after the app is redeployed.
             filename: "bundles/[hash]/[name].js",
             chunkFilename: "bundles/[hash]/[name].js",
+            globalObject: 'this',
         },
 
         // configuration for the webpack-dev-server

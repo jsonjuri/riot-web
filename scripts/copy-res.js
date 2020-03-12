@@ -66,7 +66,7 @@ const COPY_LIST = [
     ["res/manifest.json", PATH],
     ["res/sw.js", PATH],
     ["res/login.html", PATH],
-    ["res/welcome/**", PATH + "/images/login"],
+    ["res/welcome/**", PATH + "/login"],
     ["res/themes/**", PATH + "/themes"],
     ["res/media/**", PATH +  "/media"],
     ["node_modules/olm/olm_legacy.js", PATH, { directwatch: 1 }],
