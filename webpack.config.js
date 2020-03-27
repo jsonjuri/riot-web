@@ -69,6 +69,9 @@ module.exports = (env, argv) => {
                         enforce: true
                     },
                     */
+                    default: {
+                        reuseExistingChunk: true,
+                    },
                 },
             },
 

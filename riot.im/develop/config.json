@@ -40,18 +40,17 @@
     },
     "default_federate": true,
     "default_theme": "light",
+    "piwik": {
+        "url": "https://piwik.riot.im/",
+        "siteId": 1,
+        "policyUrl": "https://matrix.org/legal/riot-im-cookie-policy"
+    },
     "roomDirectory": {
         "servers": [
             "local.friends.chat"
         ]
     },
     "welcomeUserId": "@riot-bot:matrix.org",
-    "piwik": {
-        "url": "https://piwik.riot.im/",
-        "whitelistedHSUrls": ["https://matrix.org"],
-        "whitelistedISUrls": ["https://vector.im", "https://matrix.org"],
-        "siteId": 1
-    },
     "enable_presence_by_hs_url": {
         "http://local.friends.chat": false,
         "https://matrix-client.matrix.org": false
