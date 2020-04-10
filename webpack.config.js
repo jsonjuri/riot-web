@@ -36,7 +36,7 @@ module.exports = (env, argv) => {
         ...development,
 
         entry: {
-            "bundle": "./src/vector/index.js",
+            "bundle": "./src/vector/index.ts",
             "indexeddb-worker": "./src/vector/indexeddb-worker.js",
             "mobileguide": "./src/vector/mobile_guide/index.js",
             "jitsi": "./src/vector/jitsi/index.ts",
@@ -195,6 +195,7 @@ module.exports = (env, argv) => {
 
                                     require("postcss-simple-vars")(),
                                     require("postcss-strip-inline-comments")(),
+                                    require("postcss-hexrgba")(),
 
                                     // It's important that this plugin is last otherwise we end
                                     // up with broken CSS.
@@ -232,6 +233,7 @@ module.exports = (env, argv) => {
                                     require("postcss-mixins")(),
                                     require("postcss-easings")(),
                                     require("postcss-strip-inline-comments")(),
+                                    require("postcss-hexrgba")(),
 
                                     // It's important that this plugin is last otherwise we end
                                     // up with broken CSS.
