@@ -356,7 +356,7 @@ module.exports = (env, argv) => {
                 chunks: ['usercontent'],
             }),
 
-            new CompressionPlugin({
+/*            new CompressionPlugin({
                 filename: '[path].gz[query]',
                 algorithm: 'gzip',
                 test: /\.js$|\.css$|\.html$/,
@@ -371,7 +371,7 @@ module.exports = (env, argv) => {
                 compressionOptions: { level: 11 },
                 threshold: 10240,
                 minRatio: 0.8,
-            }),
+            }),*/
         ],
 
         output: {
