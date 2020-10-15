@@ -5,11 +5,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require("webpack");
 
-const CompressionPlugin = require('compression-webpack-plugin');
-const BrotliPlugin = require('brotli-webpack-plugin');
-
-const destination_path = "../../friends.social/app/webroot/chat";
-
 let og_image_url = process.env.RIOT_OG_IMAGE_URL;
 if (!og_image_url) og_image_url = 'https://app.element.io/themes/element/img/logos/opengraph.png';
 
@@ -50,9 +45,9 @@ module.exports = (env, argv) => {
             "theme-legacy": "./node_modules/matrix-react-sdk/res/themes/legacy-light/css/legacy-light.scss",
             "theme-legacy-dark": "./node_modules/matrix-react-sdk/res/themes/legacy-dark/css/legacy-dark.scss",
             "theme-light": "./node_modules/matrix-react-sdk/res/themes/light/css/light.scss",
-            //"theme-dark": "./node_modules/matrix-react-sdk/res/themes/dark/css/dark.scss",
-            //"theme-light-custom": "./node_modules/matrix-react-sdk/res/themes/light-custom/css/light-custom.scss",
-            //"theme-dark-custom": "./node_modules/matrix-react-sdk/res/themes/dark-custom/css/dark-custom.scss",
+            "theme-dark": "./node_modules/matrix-react-sdk/res/themes/dark/css/dark.scss",
+            "theme-light-custom": "./node_modules/matrix-react-sdk/res/themes/light-custom/css/light-custom.scss",
+            "theme-dark-custom": "./node_modules/matrix-react-sdk/res/themes/dark-custom/css/dark-custom.scss",
         },
 
         optimization: {
@@ -67,14 +62,6 @@ module.exports = (env, argv) => {
                         enforce: true,
                         // Do not add `chunks: 'all'` here because you'll break the app entry point.
                     },
-                    /*
-                    vendor: {
-                        test: /node_modules/,
-                        chunks: 'initial',
-                        name: 'vendor',
-                        enforce: true
-                    },
-                    */
                     default: {
                         reuseExistingChunk: true,
                     },
@@ -120,7 +107,7 @@ module.exports = (env, argv) => {
                 "sanitize-html": path.resolve(__dirname, 'node_modules/sanitize-html'),
 
                 // Define a variable so the i18n stuff can load
-                "$webapp": path.resolve(__dirname, destination_path),
+                "$webapp": path.resolve(__dirname, 'webapp'),
             },
         },
 
@@ -267,7 +254,7 @@ module.exports = (env, argv) => {
                     type: "javascript/auto",
                     loader: 'file-loader',
                     options: {
-                        name: 'translations/[name].[hash:7].[ext]',
+                        name: 'i18n/[name].[hash:7].[ext]',
                     },
                 },
                 {
@@ -343,7 +330,7 @@ module.exports = (env, argv) => {
             // This is the mobile guide's entry point (separate for faster mobile loading)
             new HtmlWebpackPlugin({
                 template: './src/vector/mobile_guide/index.html',
-                filename: 'mobile.html',
+                filename: 'mobile_guide/index.html',
                 minify: argv.mode === 'production',
                 chunks: ['mobileguide'],
             }),
@@ -365,31 +352,14 @@ module.exports = (env, argv) => {
             // This is the usercontent sandbox's entry point (separate for iframing)
             new HtmlWebpackPlugin({
                 template: './node_modules/matrix-react-sdk/src/usercontent/index.html',
-                filename: 'iframe.html',
+                filename: 'usercontent/index.html',
                 minify: argv.mode === 'production',
                 chunks: ['usercontent'],
             }),
-
-/*            new CompressionPlugin({
-                filename: '[path].gz[query]',
-                algorithm: 'gzip',
-                test: /\.js$|\.css$|\.html$/,
-                threshold: 10240,
-                minRatio: 0.8,
-            }),
-
-            new CompressionPlugin({
-                filename: '[path].br[query]',
-                algorithm: 'brotliCompress',
-                test: /\.(js|css|html|svg)$/,
-                compressionOptions: { level: 11 },
-                threshold: 10240,
-                minRatio: 0.8,
-            }),*/
         ],
 
         output: {
-            path: path.join(__dirname, destination_path),
+            path: path.join(__dirname, "webapp"),
 
             // The generated JS (and CSS, from the extraction plugin) are put in a
             // unique subdirectory for the build. There will only be one such
@@ -400,13 +370,12 @@ module.exports = (env, argv) => {
             // chunks even after the app is redeployed.
             filename: "bundles/[hash]/[name].js",
             chunkFilename: "bundles/[hash]/[name].js",
-            globalObject: 'this',
         },
 
         // configuration for the webpack-dev-server
         devServer: {
             // serve unwebpacked assets from webapp.
-            contentBase: destination_path,
+            contentBase: './webapp',
 
             // Only output errors, warnings, or new compilations.
             // This hides the massive list of modules.

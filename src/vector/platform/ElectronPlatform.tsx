@@ -140,8 +140,8 @@ class SeshatIndexManager extends BaseEventIndexManager {
         return this._ipcCall('supportsEventIndexing');
     }
 
-    async initEventIndex(userId: string, deviceId: string): Promise<void> {
-        return this._ipcCall('initEventIndex', userId, deviceId);
+    async initEventIndex(): Promise<void> {
+        return this._ipcCall('initEventIndex');
     }
 
     async addEventToIndex(ev: MatrixEvent, profile: MatrixProfile): Promise<void> {
