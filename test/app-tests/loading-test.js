@@ -28,8 +28,8 @@ import MatrixReactTestUtils from 'matrix-react-test-utils';
 import * as jssdk from 'matrix-js-sdk';
 import * as sdk from 'matrix-react-sdk';
 import {MatrixClientPeg} from 'matrix-react-sdk/src/MatrixClientPeg';
-import {VIEWS} from 'matrix-react-sdk/src/components/structures/MatrixChat';
-import dis from 'matrix-react-sdk/src/dispatcher';
+import {Views} from 'matrix-react-sdk/src/components/structures/MatrixChat';
+import dis from 'matrix-react-sdk/src/dispatcher/dispatcher';
 import * as test_utils from '../test-utils';
 import MockHttpBackend from 'matrix-mock-request';
 import {parseQs, parseQsFromFragment} from '../../src/vector/url_utils';
@@ -589,8 +589,10 @@ describe('loading:', function() {
 
     describe('Token login:', function() {
         it('logs in successfully', function() {
+            localStorage.setItem("mx_sso_hs_url", "https://homeserver");
+            localStorage.setItem("mx_sso_is_url", "https://idserver");
             loadApp({
-                queryString: "?loginToken=secretToken&homeserver=https%3A%2F%2Fhomeserver&identityServer=https%3A%2F%2Fidserver",
+                queryString: "?loginToken=secretToken",
             });
 
             return sleep(1).then(() => {
@@ -679,7 +681,7 @@ function assertAtLoadingSpinner(matrixChat) {
 }
 
 function awaitLoggedIn(matrixChat) {
-    if (matrixChat.state.view === VIEWS.LOGGED_IN) {
+    if (matrixChat.state.view === Views.LOGGED_IN) {
         return Promise.resolve();
     }
     return new Promise(resolve => {
@@ -704,7 +706,7 @@ function awaitRoomView(matrixChat, retryLimit, retryCount) {
         retryCount = 0;
     }
 
-    if (matrixChat.state.view !== VIEWS.LOGGED_IN || !matrixChat.state.ready) {
+    if (matrixChat.state.view !== Views.LOGGED_IN || !matrixChat.state.ready) {
         console.log(Date.now() + " Awaiting room view: not ready yet.");
         if (retryCount >= retryLimit) {
             throw new Error("MatrixChat still not ready after " +
