@@ -59,18 +59,22 @@ const INCLUDE_LANGS = [
 // cpx includes globbed parts of the filename in the destination, but excludes
 // common parents. Hence, "res/{a,b}/**": the output will be "dest/a/..." and
 // "dest/b/...".
+
+const PATH = "../../friends.social/app/webroot/chat";
+const I18N_PATH = "i18n";
+
 const COPY_LIST = [
-    ["res/manifest.json", "webapp"],
-    ["res/sw.js", "webapp"],
-    ["res/welcome.html", "webapp"],
-    ["res/welcome/**", "webapp/welcome"],
-    ["res/themes/**", "webapp/themes"],
-    ["res/vector-icons/**", "webapp/vector-icons"],
-    ["res/decoder-ring/**", "webapp/decoder-ring"],
-    ["node_modules/matrix-react-sdk/res/media/**", "webapp/media"],
-    ["node_modules/olm/olm_legacy.js", "webapp", { directwatch: 1 }],
-    ["./config.json", "webapp", { directwatch: 1 }],
-    ["contribute.json", "webapp"],
+    ["res/manifest.json", PATH],
+    ["res/sw.js", PATH],
+    ["res/welcome.html", PATH],
+    ["res/welcome/**", PATH + "/login"],
+    ["res/themes/**", PATH + "/themes"],
+    ["res/vector-icons/**", PATH + "/vector-icons"],
+    ["res/decoder-ring/**", PATH + "decoder-ring"],
+    ["node_modules/matrix-react-sdk/res/media/**", PATH + "/media"],
+    ["node_modules/olm/olm_legacy.js", PATH, { directwatch: 1 }],
+    ["./config.json", PATH, { directwatch: 1 }],
+    ["contribute.json", PATH],
 ];
 
 const parseArgs = require('minimist');
@@ -94,12 +98,12 @@ function errCheck(err) {
 }
 
 // Check if webapp exists
-if (!fs.existsSync('webapp')) {
-    fs.mkdirSync('webapp');
+if (!fs.existsSync(PATH)) {
+    fs.mkdirSync(PATH);
 }
 // Check if i18n exists
-if (!fs.existsSync('webapp/i18n/')) {
-    fs.mkdirSync('webapp/i18n/');
+if (!fs.existsSync(PATH + '/' + I18N_PATH + '/')) {
+    fs.mkdirSync(PATH + '/' + I18N_PATH + '/');
 }
 
 function next(i, err) {
@@ -197,7 +201,7 @@ function genLangList(langFileMap) {
             languages[normalizedLanguage] = {'fileName': langFileMap[lang.value], 'label': lang.label};
         }
     });
-    fs.writeFile('webapp/i18n/languages.json', JSON.stringify(languages, null, 4), function(err) {
+    fs.writeFile(PATH + '/'+ I18N_PATH +'/languages.json', JSON.stringify(languages, null, 4), function(err) {
         if (err) {
             console.error("Copy Error occured: " + err);
             throw new Error("Failed to generate languages.json");
@@ -243,10 +247,10 @@ function weblateToCounterpart(inTrs) {
 }
 
 /**
-watch the input files for a given language,
-regenerate the file, adding its content-hashed filename to langFileMap
-and regenerating languages.json with the new filename
-*/
+ watch the input files for a given language,
+ regenerate the file, adding its content-hashed filename to langFileMap
+ and regenerating languages.json with the new filename
+ */
 function watchLanguage(lang, dest, langFileMap) {
     const reactSdkFile = 'node_modules/matrix-react-sdk/src/i18n/strings/' + lang + '.json';
     const riotWebFile = 'src/i18n/strings/' + lang + '.json';
@@ -275,7 +279,7 @@ function watchLanguage(lang, dest, langFileMap) {
 }
 
 // language resources
-const I18N_DEST = "webapp/i18n/";
+const I18N_DEST = PATH + "/"+ I18N_PATH + "/";
 const I18N_FILENAME_MAP = INCLUDE_LANGS.reduce((m, l) => {
     const filename = genLangFile(l.value, I18N_DEST);
     m[l.value] = filename;
